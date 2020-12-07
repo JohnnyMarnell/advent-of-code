@@ -25,7 +25,9 @@ def is_valid_part2(passport):
         and re.match('#[a-f0-9]{6}', passport['hcl']) \
         and re.match('amb|blu|brn|gry|grn|hzl|oth', passport['ecl']) \
         and re.match('\d{9}', passport['pid'])
-    print(bool(valid), json.dumps(passport))
+    # print(bool(valid), json.dumps(passport))
+    if valid:
+        print(json.dumps(passport))
     return valid
 
 
@@ -34,12 +36,11 @@ def in_range(string, min, max):
 
 def count_valid(validator):
     valid = 0
-    with gzip.open('inputs/4.gz') as f:
-        passports = f.read().split('\n\n')
-        for passport in passports:
-            passport = parse_passport(passport)
-            if validator(passport):
-                valid += 1
+    passports = gzip.open('inputs/4.gz').read().split('\n\n')
+    for passport in passports:
+        passport = parse_passport(passport)
+        if validator(passport):
+            valid += 1
     return valid
 
 print(count_valid(is_valid_part1))
