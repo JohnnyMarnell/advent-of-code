@@ -9,7 +9,7 @@ def parse_passport(lines):
         if passport.get(pair[0]) is not None:
             print "******** dupe \n\n\n\n\n\n"
         passport[pair[0]] = pair[1]
-    passport['original'] = lines
+    # passport['original'] = lines
     return passport
 
 def is_valid_part1(passport):
@@ -27,7 +27,10 @@ def is_valid_part2(passport):
         and re.match('\d{9}', passport['pid'])
     # print(bool(valid), json.dumps(passport))
     if valid:
-        print(json.dumps(passport))
+        # print(json.dumps(passport))
+        keys = list(passport.keys())
+        keys.sort()
+        print([key + ':' + passport[key] for key in passport])
     return valid
 
 
@@ -43,5 +46,7 @@ def count_valid(validator):
             valid += 1
     return valid
 
-print(count_valid(is_valid_part1))
-print(count_valid(is_valid_part2))
+# print(count_valid(is_valid_part1))
+# print(count_valid(is_valid_part2))
+
+count_valid(is_valid_part2)
